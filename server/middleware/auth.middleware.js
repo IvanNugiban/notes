@@ -10,8 +10,7 @@ function auth(req, res, next) {
         if (token === "null") {
             return res.status(401).json("Auth error");
         }
-        const decodedUserId = jwt.verify(token, config.get("secretKey"));
-        req.user = decodedUserId;
+        req.user = jwt.verify(token, config.get("secretKey"));
         next();
     }
     catch(e) {

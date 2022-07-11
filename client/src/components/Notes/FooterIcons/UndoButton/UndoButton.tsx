@@ -1,4 +1,4 @@
-import React, {ComponentType, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {UndoOutlined} from "@ant-design/icons";
 import {InputHistoryType} from "../../../../types/InputHistoryHookTypes";
 import styled from "styled-components";

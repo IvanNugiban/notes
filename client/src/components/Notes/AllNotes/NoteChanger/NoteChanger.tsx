@@ -5,7 +5,7 @@ import useInputHistory from '../../../../hooks/useInputHistory';
 import NoteInput from "../../NoteInput/NoteInput";
 import styled from "styled-components";
 import {IIncomingNotes} from "../../../../types/NotesGetterTypes";
-import IconTools from "../../FooterIcons/IconTools";
+import NoteTools from "../../FooterIcons/NoteTools";
 import Moment from 'react-moment';
 import {useChangeNoteMutation} from "../../../../services/notesService";
 import {useTypedSelector} from "../../../../redux/typedReduxHooks";
@@ -119,7 +119,7 @@ const NoteChanger = ({note}: IProps) => {
             <NoteInput maxLength={1000} placeholder="Your note..." callback={() => setLastChanged("text")}
                        bind={text.bind}/>
             <ToolsWrapper>
-                <IconTools lastChanged={lastChanged} text={text} title={title} note={{
+                <NoteTools lastChanged={lastChanged} text={text} title={title} note={{
                     pined: note.pined,
                     background: note.background,
                     coAuthors: note.coAuthors

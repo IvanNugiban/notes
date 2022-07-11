@@ -32,7 +32,7 @@ interface IProps {
     }
 }
 
-const IconTools = ({lastChanged, text, title, note, actions} : IProps) => {
+const NoteTools = ({lastChanged, text, title, note, actions} : IProps) => {
     const [whichOpened, setOpened] = useState<"background" | "co-authors" | undefined>(undefined);
 
     const data = useMemo(() => [
@@ -69,4 +69,4 @@ const IconTools = ({lastChanged, text, title, note, actions} : IProps) => {
     );
 };
 
-export default IconTools;
+export default NoteTools;

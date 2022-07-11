@@ -1,5 +1,5 @@
-import {ActionCreatorWithoutPayload, ActionCreatorWithPayload, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {ILoggedInUser, IUser, IUserData} from "../../types/IUserAuth";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {IUserData} from "../../types/IUserAuth";
 
 interface IInitialState {
     isAuth: boolean,

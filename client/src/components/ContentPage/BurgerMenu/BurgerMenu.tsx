@@ -2,9 +2,8 @@ import React from 'react';
 import {slide as Menu} from "react-burger-menu"
 import useActions from '../../../hooks/useActions';
 import LinksMenu from "../LinksMenu/LinksMenu";
-import Navbar from '../Navbar/Navbar';
 import "./BurgerMenu.css"
-import {Button, Row, Space} from "antd";
+import {Button} from "antd";
 import {useTypedSelector} from "../../../redux/typedReduxHooks";
 
 const BurgerMenu = () => {

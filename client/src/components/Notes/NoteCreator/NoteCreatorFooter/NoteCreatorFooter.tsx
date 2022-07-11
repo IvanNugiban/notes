@@ -2,7 +2,7 @@ import React, {useCallback} from 'react';
 import {Alert, Button, Layout, Row} from "antd";
 import styled from "styled-components";
 import {InputHistoryType} from "../../../../types/InputHistoryHookTypes";
-import IconTools from "../../FooterIcons/IconTools";
+import NoteTools from "../../FooterIcons/NoteTools";
 import {useTypedSelector} from "../../../../redux/typedReduxHooks";
 import {useAddNoteMutation} from "../../../../services/notesService";
 import useActions from "../../../../hooks/useActions";
@@ -50,7 +50,7 @@ const NoteCreatorFooter = ({lastChanged, text, title, closeWindow}: IProps) => {
     return (
         <Footer>
             <Row justify="space-between">
-                <IconTools lastChanged={lastChanged} text={text} title={title} note={{
+                <NoteTools lastChanged={lastChanged} text={text} title={title} note={{
                     pined,
                     background,
                     coAuthors

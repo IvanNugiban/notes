@@ -1,5 +1,5 @@
-import React, {ComponentType, useEffect, useState} from 'react';
-import {RedoOutlined, UndoOutlined} from "@ant-design/icons";
+import React, {useEffect, useState} from 'react';
+import {RedoOutlined} from "@ant-design/icons";
 import {InputHistoryType} from "../../../../types/InputHistoryHookTypes";
 import styled from "styled-components";
 

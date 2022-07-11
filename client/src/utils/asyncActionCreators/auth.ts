@@ -2,7 +2,6 @@ import {Action, Dispatch as ReduxDispatch} from "@reduxjs/toolkit";
 import {Dispatch, SetStateAction} from "react";
 import {IUserData} from "../../types/IUserAuth";
 import axios from "axios";
-import useActions from "../../hooks/useActions";
 import {authActions} from "../../redux/slices/authSlice";
 
 function auth(setLoading : Dispatch<SetStateAction<boolean>>) {

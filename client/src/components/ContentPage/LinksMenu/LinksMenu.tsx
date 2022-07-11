@@ -1,6 +1,6 @@
 import React from 'react';
 import {Menu, Space} from 'antd'
-import {HomeOutlined, PushpinOutlined, RestOutlined, SnippetsOutlined, UserOutlined} from "@ant-design/icons";
+import {HomeOutlined, PushpinOutlined, SnippetsOutlined, UserOutlined} from "@ant-design/icons";
 import {Link} from "react-router-dom";
 import styled from 'styled-components';
 
