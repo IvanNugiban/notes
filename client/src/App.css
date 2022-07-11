@@ -1,0 +1,12 @@
+.notes_creator-item {
+    font-size: 1.1em;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    mix-blend-mode: difference;
+}
+
+.ant-input-textarea-show-count::after {
+    color: #8c8b8b;
+    mix-blend-mode: difference;
+}
+
