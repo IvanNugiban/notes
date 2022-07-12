@@ -37,7 +37,7 @@ const CreatedAt = styled(Typography.Title)`
 const PreviewNote = (note: IIncomingNotes) => {
     return (
         <Note extra={<PreviewNoteMenu note={note}/>} headStyle={{mixBlendMode: "difference"}} style={{background: note.background}} title={note.title.length === 0 ? "No title" : note.title }>
-            <Typography.Paragraph>{note.text}</Typography.Paragraph>
+            <Typography.Paragraph>{note.text.length === 0 ? "No text" : note.text}</Typography.Paragraph>
             {note.pined && <PinedIcon/>}
             <CreatedAt level={5}>Created on <Moment format="DD/MM/YYYY" >{new Date(note.createdOn)}</Moment></CreatedAt>
         </Note>

@@ -13,10 +13,10 @@ const AllNotes = () => {
     const {noteChanger, notes} = useTypedSelector(state => state);
     const limit = useRef(5);
     const {setPage, setTypeOfSorting} = useActions();
-    const {data: notesData, isFetching,  error} = useGetNotesQuery({limit: limit.current, page: notes.page, sortType: notes.sortType});
+    const {data: notesData, isFetching,  isError} = useGetNotesQuery({limit: limit.current, page: notes.page, sortType: notes.sortType});
 
     if (isFetching) return <Skeleton/>;
-    if (error || !notesData?.notes) return <Empty description="No notes"/>;
+    if (isError || !notesData?.notes) return <Empty description="No notes"/>;
     
     return (
         <div>

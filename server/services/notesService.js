@@ -14,6 +14,15 @@ class NotesService {
         };
     }
 
+    async getNotePage(noteId, sortType, creator, limit) {
+        const userNotes = await Note.find({creator: creator.id});
+        const sortedNotes = await this.sort(sortType, userNotes);
+        const neededNotePosition = sortedNotes.findIndex(note => note.id === noteId);
+        if (neededNotePosition === -1) throw new Error("Note not found");
+        const page = Math.ceil((neededNotePosition + 1) / limit);
+        return page;
+    }
+
     async sort(sortType, notes) {
         switch (sortType) {
             case "pined":
@@ -25,21 +34,21 @@ class NotesService {
                 });
             case "oldest" :
                 return notes.sort((firstNote, secondNote) => {
-                    if (firstNote.createdOn.getTime() > secondNote.createdOn.getTime()) return 1;
-                    if (firstNote.createdOn.getTime() < secondNote.createdOn.getTime()) return -1;
-                    if (firstNote.createdOn.getTime() === secondNote.createdOn.getTime()) return 0;
+                    if (new Date(firstNote.createdOn).getTime() > new Date(secondNote.createdOn).getTime()) return 1;
+                    if (new Date(firstNote.createdOn).getTime() < new Date(secondNote.createdOn).getTime()) return -1;
+                    if (new Date(firstNote.createdOn).getTime() === new Date(secondNote.createdOn).getTime()) return 0;
                 });
             case "newest" :
                 return notes.sort((firstNote, secondNote) => {
-                    if (firstNote.createdOn.getTime() > secondNote.createdOn.getTime()) return -1;
-                    if (firstNote.createdOn.getTime() < secondNote.createdOn.getTime()) return 1;
-                    if (firstNote.createdOn.getTime() === secondNote.createdOn.getTime()) return 0;
+                    if (new Date(firstNote.createdOn).getTime() > new Date(secondNote.createdOn).getTime()) return -1;
+                    if (new Date(firstNote.createdOn).getTime() < new Date(secondNote.createdOn).getTime()) return 1;
+                    if (new Date(firstNote.createdOn).getTime() === new Date(secondNote.createdOn).getTime()) return 0;
                 });
             case "lastChange" :
                 return notes.sort((firstNote, secondNote) => {
-                    if (firstNote.lastChanged.date.getTime() > secondNote.lastChanged.date.getTime()) return -1;
-                    if (firstNote.lastChanged.date.getTime() < secondNote.lastChanged.date.getTime()) return 1;
-                    if (firstNote.lastChanged.date.getTime() === secondNote.lastChanged.date.getTime()) return 0;
+                    if (new Date(firstNote.lastChanged.date).getTime() > new Date(secondNote.lastChanged.date).getTime()) return -1;
+                    if (new Date(firstNote.lastChanged.date).getTime() < new Date(secondNote.lastChanged.date).getTime()) return 1;
+                    if (new Date(firstNote.lastChanged.date).getTime() === new Date(secondNote.lastChanged.date).getTime()) return 0;
                 });
             default:
                 return notes;

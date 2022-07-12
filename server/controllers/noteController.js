@@ -8,7 +8,20 @@ class noteController {
             const notesData = await noteService.get(user, limit, page, sortType);
             return res.json(notesData);
         } catch (e) {
+            console.log(e);
             res.status(404).json(e.message);
+        }
+    }
+
+    async getNotePage(req, res) {
+        try {
+            const creator = req.user;
+            const {noteId, sortType, limit} = req.query;
+            return res.json(await noteService.getNotePage(noteId, sortType, creator, limit));
+        }
+        catch (e) {
+            console.log(e);
+            res.status(404).json(e.message)
         }
     }
 

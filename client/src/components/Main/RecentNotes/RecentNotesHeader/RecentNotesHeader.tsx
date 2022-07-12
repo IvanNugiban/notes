@@ -12,6 +12,10 @@ const LinkToNotes = styled(Link)`
   }
 `
 
+const StyledHeader = styled(Row)`
+    margin-bottom: 10px;
+`
+
 const RightArrow = styled(RightOutlined)`
   font-size: 0.9em;
   color: #50C36E;
@@ -20,7 +24,7 @@ const RightArrow = styled(RightOutlined)`
 
 const RecentNotesHeader = () => {
     return (
-        <Row justify="space-between">
+        <StyledHeader justify="space-between">
             <LinkToNotes to="/notes">
                 <Typography.Title level={5}>NOTES</Typography.Title>
                 <RightArrow/>
@@ -30,7 +34,7 @@ const RecentNotesHeader = () => {
                     <PlusOutlined />
                 </Link>
             </Popover>
-        </Row>
+        </StyledHeader>
     );
 };
 
