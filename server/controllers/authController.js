@@ -8,13 +8,14 @@ class authController {
             if (!errors.isEmpty()) {
                 return res.status(400).json("Check the correctness of the data");
             }
-            await authService.register(req.body)
+            await authService.register(req.body);
             return res.json("Registration successful");
         } catch (e) {
             console.log(e);
             res.status(403).json(e.message);
         }
     }
+
     async login (req, res) {
         try {
             const isEmail = validationResult(req);

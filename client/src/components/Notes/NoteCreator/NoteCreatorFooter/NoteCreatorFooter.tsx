@@ -18,7 +18,7 @@ const Footer = styled(Layout.Footer)`
 const ColoredButton = styled(Button)`
   &,
   span {
-    color: #606060;
+    color: #F8F7F7CC;
     mix-blend-mode: difference;
   }
 `

@@ -24,11 +24,13 @@ const LastChanged = styled(Typography.Title)`
   left: 10px;
   bottom: 10px;
   padding-right: 170px;
- &.ant-typography,
-  *{
-     font-size: 13px;
+
+  &.ant-typography,
+  * {
+    font-size: 13px;
     color: #565656;
   }
+
   @media screen and (max-width: 500px) {
     bottom: 3px;
   }
@@ -36,11 +38,11 @@ const LastChanged = styled(Typography.Title)`
   @media screen and (max-width: 360px) {
     bottom: -2px;
     &.ant-typography,
-    *{
+    * {
       font-size: 11px;
     }
   }
-  
+
 `
 
 const ToolsWrapper = styled.div`
@@ -68,7 +70,7 @@ const StyledNoteChanger = styled(Modal)<StyledProps>`
   }
 
   .ant-modal-footer span {
-    color: #606060;
+    color: #F8F7F7CC;
     mix-blend-mode: difference;
   }
 
@@ -76,7 +78,7 @@ const StyledNoteChanger = styled(Modal)<StyledProps>`
   .ant-modal-footer,
   textarea,
   textarea::placeholder {
-    color: rgba(199, 198, 198, 0.60);
+    color: #A6A5A599;
     mix-blend-mode: difference;
     background: transparent;
   }
@@ -98,24 +100,27 @@ const NoteChanger = ({note}: IProps) => {
     const [lastChanged, setLastChanged] = useState<string>("text");
 
     const changeNoteCallback = useCallback(async () => {
-    const response = await changeNote({
-        id: note._id,
-        text: text.bind.value,
-        title: title.bind.value,
-        lastChanged: {author, date: new Date().toString()},
-        background: note.background,
-        pined: note.pined,
-        coAuthors: note.coAuthors
-    })
+        const response = await changeNote({
+            id: note._id,
+            text: text.bind.value,
+            title: title.bind.value,
+            lastChanged: {author, date: new Date().toString()},
+            background: note.background,
+            pined: note.pined,
+            coAuthors: note.coAuthors
+        })
         if ('data' in response) closeNoteChanger();
     }, [note, text.bind.value, title.bind.value]);
 
     return (
-        <StyledNoteChanger  {...customProps} closable={false} onOk={() => changeNoteCallback()}  okText="Save" confirmLoading={isLoading}
+        <StyledNoteChanger  {...customProps} closable={false} onOk={() => changeNoteCallback()} okText="Save"
+                            confirmLoading={isLoading}
                             title={<NoteInput maxLength={100} placeholder="Enter title" bind={title.bind}
-                             callback={() => setLastChanged("title")}/>}
+                                              callback={() => setLastChanged("title")}/>}
                             onCancel={() => closeNoteChanger()} visible={true}>
-            <LastChanged level={5}>Last changed at <Moment format="DD/MM/YYYY HH:mm">{new Date(note.lastChanged.date)}</Moment> by {note.lastChanged.author}</LastChanged>
+            <LastChanged level={5}>Last changed at <Moment
+                format="DD/MM/YYYY HH:mm">{new Date(note.lastChanged.date)}</Moment> by {note.lastChanged.author}
+            </LastChanged>
             <NoteInput maxLength={1000} placeholder="Your note..." callback={() => setLastChanged("text")}
                        bind={text.bind}/>
             <ToolsWrapper>

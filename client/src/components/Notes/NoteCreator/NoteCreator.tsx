@@ -23,12 +23,10 @@ const StyledNoteCreator = styled(Layout)`
   border-radius: 5px;
   box-shadow: 0 0 5px 3px #C0C2C2;
   margin-bottom: 10vh;
-
-  
   textarea {
     &,
     &::placeholder {
-      color: rgba(199, 198, 198, 0.60);
+      color: #A6A5A599;
     }
 
     mix-blend-mode: difference;

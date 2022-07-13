@@ -2,8 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const config = require('config');
 const authRouter = require('./routes/authRouter');
-const notesRouter = require('./routes/notesRouter')
-const corsMiddleware = require('./middleware/cors.middleware')
+const notebookRouter = require('./routes/notebookRouter')
+const notesRouter = require('./routes/notesRouter');
+const corsMiddleware = require('./middleware/cors.middleware');
 
 const app = express();
 const PORT = config.get("serverPort");
@@ -11,7 +12,8 @@ const PORT = config.get("serverPort");
 app.use(corsMiddleware)
 app.use(express.json());
 app.use("/api/auth", authRouter);
-app.use("/api/notes", notesRouter)
+app.use("/api/notebook", notebookRouter);
+app.use("/api/notes", notesRouter);
 
 const start = async () => {
     try {

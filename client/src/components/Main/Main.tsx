@@ -1,12 +1,13 @@
 import {Col, Layout, Row} from 'antd';
 import React from 'react';
 import RecentNotes from "./RecentNotes/RecentNotes";
+import Notebook from "./Notebook/Notebook";
 
 const Main = () => {
     return (
         <Layout.Content>
            <RecentNotes/>
-            <span>Notebook</span>
+            <Notebook/>
         </Layout.Content>
     );
 };
