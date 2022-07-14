@@ -4,13 +4,22 @@ const Note = require('../models/Note');
 class NotesService {
     async get(user, limit, page, sortType) {
         const userNotes = await Note.find({creator: user.id});
-        if (userNotes.length === 0) throw new Error("No data found");
+        if (userNotes.length === 0) throw new Error("No notes found");
         const sortedNotes = await this.sort(sortType, userNotes);
         const totalPages = Math.ceil(sortedNotes.length / limit);
         const itemsToReturn = sortedNotes.slice(limit * (page - 1), limit * page);
         return {
             notes: itemsToReturn,
             totalPages
+        };
+    }
+
+    async getPinedNotes(user, limit) {
+        const pinedNotes = await Note.find({creator: user.id, pined: true});
+        if (pinedNotes.length === 0) throw new Error("No notes found");
+        return {
+            notes: pinedNotes.slice(0, limit),
+            isMoreNotes: pinedNotes.length > limit
         };
     }
 
@@ -70,16 +79,16 @@ class NotesService {
     }
 
     async change({id, ...note}) {
-    return Note.findByIdAndUpdate(id, {...note});
+        return Note.findByIdAndUpdate(id, {...note});
     }
 
-   async deleteOne(id) {
-       return Note.findByIdAndDelete(id);
-   }
+    async deleteOne(id) {
+        return Note.findByIdAndDelete(id);
+    }
 
-   async deleteAll(creator) {
+    async deleteAll(creator) {
         return Note.deleteMany({creator});
-   }
+    }
 }
 
 module.exports = new NotesService();

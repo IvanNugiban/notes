@@ -8,7 +8,7 @@ export interface IIncomingNotes extends INote {
 }
 
 export interface INotesData {
-    notes: IIncomingNotes[],
+    notes: IIncomingNotes[];
     totalPages: number;
 }
 
@@ -16,4 +16,9 @@ export type GetNotesParams = {
     limit: number,
     page: number;
     sortType: SortTypes
+}
+
+export interface IPinedNotes {
+    notes: IIncomingNotes[];
+    isMoreNotes: boolean;
 }

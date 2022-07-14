@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from "styled-components";
-import {Button, Dropdown, Input, Layout, Row, Space} from "antd";
-import {CaretDownFilled, DownOutlined, PlusCircleFilled} from "@ant-design/icons";
+import {Dropdown, Layout, Space} from "antd";
+import {DownOutlined} from "@ant-design/icons";
 import UserMenu from "./UserMenu/UserMenu";
 import {useTypedSelector} from "../../../redux/typedReduxHooks";
 import LinksMenu from "../LinksMenu/LinksMenu";
@@ -21,6 +21,7 @@ const StyledNavbar = styled(Layout.Sider)`
 `
 
 const StyledDropdown = styled(Dropdown)`
+  width: 205px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -34,25 +35,13 @@ const Navbar = () => {
     return (
         <Wrapper>
             <StyledNavbar width={220}>
-                <Space size="middle" direction="vertical">
+                <Space size="small" direction="vertical">
                     <StyledDropdown trigger={['click']} overlay={<UserMenu/>}>
-                        <Space>
-                            {user.username}
+                        <Space align="center">
+                            <span>{user.username}</span>
                             <DownOutlined/>
                         </Space>
                     </StyledDropdown>
-                    <Dropdown trigger={['click']} overlay={<UserMenu/>}>
-                        <Input.Search enterButton placeholder="Search"/>
-                    </Dropdown>
-                    <Dropdown trigger={['click']} overlay={<UserMenu/>}>
-                        <Button type="primary" shape="round" block>
-                            <Row justify="space-between" align="middle">
-                                <PlusCircleFilled/>
-                                Create
-                                <CaretDownFilled/>
-                            </Row>
-                        </Button>
-                    </Dropdown>
                     <LinksMenu/>
                 </Space>
             </StyledNavbar>

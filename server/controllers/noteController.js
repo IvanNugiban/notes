@@ -13,6 +13,19 @@ class noteController {
         }
     }
 
+    async getPined(req, res) {
+        try {
+            const user = req.user;
+            const limit = req.query.limit;
+            console.log(await noteService.getPinedNotes(user, limit));
+            res.json(await noteService.getPinedNotes(user, limit));
+        }
+        catch (e) {
+            console.log(e.message);
+            res.status(404).json(e.message);
+        }
+    }
+
     async getNotePage(req, res) {
         try {
             const creator = req.user;

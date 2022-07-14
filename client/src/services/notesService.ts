@@ -1,15 +1,15 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {IncomingUserData, ISearchedUser} from "../types/ISearchedUser";
 import {IChangedNote, INote, INoteCreator, INoteId} from "../types/NotesTypes";
-import {GetNotesParams, INotesData} from "../types/NotesGetterTypes";
+import {GetNotesParams, IIncomingNotes, INotesData, IPinedNotes} from "../types/NotesGetterTypes";
 
 export const notesApi = createApi({
     reducerPath: "notesApi",
     baseQuery: fetchBaseQuery({baseUrl: "http://localhost:5000/api/notes"}),
-    tagTypes: ["Notes"],
+    tagTypes: ["Notes", "Pined"],
     endpoints: (builder) => ({
         getNotes: builder.query<INotesData, GetNotesParams>({
-            query: ({limit, page, sortType} : GetNotesParams ) => ({
+            query: ({limit, page, sortType}: GetNotesParams) => ({
                 url: "/get",
                 headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
                 params: {
@@ -18,11 +18,22 @@ export const notesApi = createApi({
                     sortType
                 }
             }),
-            providesTags: result => ["Notes"],
+            providesTags: ["Notes"],
             keepUnusedDataFor: 10
         }),
-        findUser: builder.mutation<ISearchedUser,IncomingUserData>({
-            query: (data : IncomingUserData ) => ({
+        getPinedNotes: builder.query<IPinedNotes, { limit: number }>({
+            query: ({limit}: { limit: number }) => ({
+                url: "/getPined",
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
+                params: {
+                    limit
+                }
+            }),
+            providesTags: ["Pined"],
+            keepUnusedDataFor: 10,
+        }),
+        findUser: builder.mutation<ISearchedUser, IncomingUserData>({
+            query: (data: IncomingUserData) => ({
                 url: "/findUser",
                 method: "POST",
                 body: data
@@ -35,7 +46,7 @@ export const notesApi = createApi({
                 body: note,
                 headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
             }),
-            invalidatesTags: ["Notes"]
+            invalidatesTags: ["Notes", "Pined"]
         }),
         changeNote: builder.mutation<void, IChangedNote>({
             query: (note: IChangedNote) => ({
@@ -43,7 +54,7 @@ export const notesApi = createApi({
                 method: 'PUT',
                 body: note
             }),
-            invalidatesTags: ["Notes"]
+            invalidatesTags: ["Notes", "Pined"]
         }),
         deleteNote: builder.mutation<void, INoteId>({
             query: (id: INoteId) => ({
@@ -51,7 +62,7 @@ export const notesApi = createApi({
                 method: "DELETE",
                 body: id
             }),
-            invalidatesTags: ["Notes"]
+            invalidatesTags: ["Notes", "Pined"]
         }),
         deleteAllNotes: builder.mutation<void, INoteCreator>({
             query: (creator: INoteCreator) => ({
@@ -59,9 +70,17 @@ export const notesApi = createApi({
                 method: "DELETE",
                 body: creator
             }),
-            invalidatesTags: ["Notes"]
+            invalidatesTags: ["Notes", "Pined"]
         })
     })
 })
 
-export const {useFindUserMutation, useAddNoteMutation, useChangeNoteMutation, useDeleteNoteMutation, useGetNotesQuery, useDeleteAllNotesMutation} = notesApi;
+export const {
+    useFindUserMutation,
+    useAddNoteMutation,
+    useChangeNoteMutation,
+    useDeleteNoteMutation,
+    useGetNotesQuery,
+    useGetPinedNotesQuery,
+    useDeleteAllNotesMutation
+} = notesApi;
