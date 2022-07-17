@@ -13,6 +13,7 @@ import {useTypedSelector} from "../../../../redux/typedReduxHooks";
 
 interface IProps {
     note: IIncomingNotes;
+    creator?: string;
 }
 
 type StyledProps = {
@@ -84,7 +85,7 @@ const StyledNoteChanger = styled(Modal)<StyledProps>`
   }
 `
 
-const NoteChanger = ({note}: IProps) => {
+const NoteChanger = ({note, creator}: IProps) => {
     const customProps = useMemo(() => ({background: note.background}), [note.background]);
     const author = useTypedSelector(state => state.auth.user.username)
     const [changeNote, {isLoading}] = useChangeNoteMutation();
@@ -127,7 +128,8 @@ const NoteChanger = ({note}: IProps) => {
                 <NoteTools lastChanged={lastChanged} text={text} title={title} note={{
                     pined: note.pined,
                     background: note.background,
-                    coAuthors: note.coAuthors
+                    coAuthors: note.coAuthors,
+                    creator
                 }} actions={{
                     togglePushpin: () => togglePushpinInChanger(),
                     setBackground: (color) => setBackgroundInChanger(color),

@@ -4,9 +4,10 @@ const authMiddleware = require('../middleware/auth.middleware');
 
 const router = new Router();
 
-router.get("/get", authMiddleware, noteController.get);
+router.get("/get", noteController.get);
 router.get("/getPined", authMiddleware, noteController.getPined);
 router.get("/getNotePage", authMiddleware, noteController.getNotePage);
+router.get("/getShared", authMiddleware, noteController.getSharedNotes)
 router.post("/findUser", noteController.findUser );
 router.post("/add", authMiddleware, noteController.add);
 router.put("/change",  noteController.change);

@@ -1,22 +1,17 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/dist/query/react";
 import {IncomingUserData, ISearchedUser} from "../types/ISearchedUser";
 import {IChangedNote, INote, INoteCreator, INoteId} from "../types/NotesTypes";
-import {GetNotesParams, IIncomingNotes, INotesData, IPinedNotes} from "../types/NotesGetterTypes";
+import {GetNotesParams, INotesData, IPinedNotes, ISharedNotes, ISharedParams} from "../types/NotesGetterTypes";
 
 export const notesApi = createApi({
     reducerPath: "notesApi",
     baseQuery: fetchBaseQuery({baseUrl: "http://localhost:5000/api/notes"}),
-    tagTypes: ["Notes", "Pined"],
+    tagTypes: ["Notes", "Pined", "Shared"],
     endpoints: (builder) => ({
         getNotes: builder.query<INotesData, GetNotesParams>({
-            query: ({limit, page, sortType}: GetNotesParams) => ({
+            query: (params: GetNotesParams) => ({
                 url: "/get",
-                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
-                params: {
-                    limit,
-                    page,
-                    sortType
-                }
+                params
             }),
             providesTags: ["Notes"],
             keepUnusedDataFor: 10
@@ -30,6 +25,15 @@ export const notesApi = createApi({
                 }
             }),
             providesTags: ["Pined"],
+            keepUnusedDataFor: 10,
+        }),
+        getSharedNotes: builder.query<ISharedNotes, ISharedParams>({
+            query: (options : ISharedParams) => ({
+                url: "/getShared",
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
+                params: {...options}
+            }),
+            providesTags: ["Shared"],
             keepUnusedDataFor: 10,
         }),
         findUser: builder.mutation<ISearchedUser, IncomingUserData>({
@@ -54,7 +58,7 @@ export const notesApi = createApi({
                 method: 'PUT',
                 body: note
             }),
-            invalidatesTags: ["Notes", "Pined"]
+            invalidatesTags: ["Notes", "Pined", "Shared"]
         }),
         deleteNote: builder.mutation<void, INoteId>({
             query: (id: INoteId) => ({
@@ -76,11 +80,12 @@ export const notesApi = createApi({
 })
 
 export const {
+    useGetNotesQuery,
+    useGetPinedNotesQuery,
+    useGetSharedNotesQuery,
     useFindUserMutation,
     useAddNoteMutation,
     useChangeNoteMutation,
     useDeleteNoteMutation,
-    useGetNotesQuery,
-    useGetPinedNotesQuery,
     useDeleteAllNotesMutation
 } = notesApi;

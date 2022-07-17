@@ -1,5 +1,4 @@
 import React from 'react';
-import {Col} from "antd";
 import styled from "styled-components";
 import RecentNotesMain from "./RecentNotesMain/RecentNotesMain";
 import RecentNotesHeader from "./RecentNotesHeader/RecentNotesHeader";

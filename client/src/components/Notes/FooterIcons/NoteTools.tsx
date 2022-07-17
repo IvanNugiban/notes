@@ -23,13 +23,14 @@ interface IProps {
         pined: boolean;
         background: string;
         coAuthors: ISearchedUser[];
+        creator?: string;
     };
     actions: {
         togglePushpin: () => void;
         setBackground: (color: string) => void;
         setCoAuthor: (user : ISearchedUser) => void;
         deleteCoAuthor: (userId: string) => void;
-    }
+    };
 }
 
 const NoteTools = ({lastChanged, text, title, note, actions} : IProps) => {
@@ -41,7 +42,7 @@ const NoteTools = ({lastChanged, text, title, note, actions} : IProps) => {
         </Wrapper>,
         <Wrapper id="Co-authors">
             <UserAddOutlined onClick={() => setOpened("co-authors")} className="notes_creator-item"  />
-            {whichOpened === "co-authors" && <NoteShare deleteCoAuthor={actions.deleteCoAuthor} coAuthors={note.coAuthors} setCoAuthor={actions.setCoAuthor} closeWindow={() => setOpened(undefined)}/>}
+            {whichOpened === "co-authors" && <NoteShare  deleteCoAuthor={actions.deleteCoAuthor} coAuthors={note.coAuthors} creator={note.creator} setCoAuthor={actions.setCoAuthor} closeWindow={() => setOpened(undefined)}/>}
         </Wrapper>,
         <Wrapper position="relative" id="Parameters of background">
             <BgColorsOutlined className="notes_creator-item" onClick={() => setOpened("background")} />

@@ -5,7 +5,7 @@ import RecentNotesItem from "../RecentNotesItem/RecentNotesItem";
 import {BookTwoTone} from "@ant-design/icons";
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {useTypedDispatch} from "../../../../redux/typedReduxHooks";
+import {useTypedDispatch, useTypedSelector} from "../../../../redux/typedReduxHooks";
 import redirectToNote from "../../../../utils/asyncActionCreators/redirectToNote";
 import {IIncomingNotes} from "../../../../types/NotesGetterTypes";
 
@@ -52,7 +52,8 @@ const NoteColumn = styled(Col)`
 `
 
 const RecentNotesMain = () => {
-    const {data: notesData, isLoading, isError} = useGetNotesQuery({limit: 10, page: 1, sortType: "newest"});
+    const userId = useTypedSelector(state => state.auth.user.id);
+    const {data: notesData, isLoading, isError} = useGetNotesQuery({userId, limit: 10, page: 1, sortType: "newest"});
     const dispatch = useTypedDispatch();
     const redirectToNoteCallback = useCallback((note : IIncomingNotes) => {
         dispatch(redirectToNote(note, "newest", 5));

@@ -7,7 +7,7 @@ const notesRouter = require('./routes/notesRouter');
 const corsMiddleware = require('./middleware/cors.middleware');
 
 const app = express();
-const PORT = config.get("serverPort");
+const PORT =  process.env.PORT || config.get("serverPort");
 
 app.use(corsMiddleware)
 app.use(express.json());

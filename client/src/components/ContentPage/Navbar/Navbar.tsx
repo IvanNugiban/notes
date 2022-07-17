@@ -21,7 +21,7 @@ const StyledNavbar = styled(Layout.Sider)`
 `
 
 const StyledDropdown = styled(Dropdown)`
-  width: 205px;
+  width: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -35,7 +35,6 @@ const Navbar = () => {
     return (
         <Wrapper>
             <StyledNavbar width={220}>
-                <Space size="small" direction="vertical">
                     <StyledDropdown trigger={['click']} overlay={<UserMenu/>}>
                         <Space align="center">
                             <span>{user.username}</span>
@@ -43,7 +42,6 @@ const Navbar = () => {
                         </Space>
                     </StyledDropdown>
                     <LinksMenu/>
-                </Space>
             </StyledNavbar>
         </Wrapper>
     );

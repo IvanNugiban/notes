@@ -6,9 +6,14 @@ const Note = new Schema({
     background: {type: String, required: true},
     creator: {type: ObjectId, ref: "User", required: true},
     pined: {type: Boolean, required: true},
-    coAuthors: {type: Array, ref: "User"},
+    coAuthors: {
+        type: [{
+            id: ObjectId,
+            username: String
+        }], ref: "User"
+    },
     createdOn: {type: Date, default: () => new Date().toString()},
     lastChanged: {type: Object, required: true}
-})
+});
 
-module.exports = model("Note", Note)
+module.exports = model("Note", Note);

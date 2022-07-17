@@ -6,6 +6,7 @@ import {useDeleteNoteMutation} from "../../../../../services/notesService";
 import useConfirmModal from "../../../../../hooks/useConfirmModal";
 import {IIncomingNotes} from "../../../../../types/NotesGetterTypes";
 import useActions from "../../../../../hooks/useActions";
+import {useTypedSelector} from "../../../../../redux/typedReduxHooks";
 
 interface IProps {
     note: IIncomingNotes
@@ -14,25 +15,28 @@ interface IProps {
 const OptionsMenu = styled(Menu)`
   padding: 0;
 
-  li:last-child {
+  li:nth-child(2) {
     background-color: #FF4D4F;
   }
 `
 
-const items = [
-    {
-        label: "Change note",
-        key: 1
-    },
-    {
-        label: "Delete note",
-        key: 2
-    }
-]
+
 
 const PreviewNoteMenu = ({note}: IProps) => {
+    const user = useTypedSelector(state => state.auth.user);
     const [deleteNote] = useDeleteNoteMutation();
     const {openNoteChanger} = useActions();
+
+    const items = [
+        {
+            label: "Change note",
+            key: 1
+        },
+        user.id === note.creator ?  {
+            label: "Delete note",
+            key: 2
+        } : null
+    ]
 
     const openDeleteNoteModal = useConfirmModal({
         onOk: () => deleteNote({id: note._id}),

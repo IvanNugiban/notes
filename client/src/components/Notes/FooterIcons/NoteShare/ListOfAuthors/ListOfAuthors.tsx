@@ -7,15 +7,16 @@ interface IProps {
     author: string;
     coAuthors: ISearchedUser[];
     deleteCoAuthor: (userId : string) => void;
+    creator?: string;
 }
 
-const ListOfAuthors = ({author, coAuthors, deleteCoAuthor} : IProps) => {
+const ListOfAuthors = ({author, coAuthors, deleteCoAuthor, creator} : IProps) => {
     const authors = useMemo(() => [
-    <Typography>{author} (author)</Typography>,
+    <Typography>{creator ? creator : author } (author)</Typography>,
     ...coAuthors.map(coAuthor => (
             <Row style={{width: "100%"}} key={coAuthor.id} align="middle" justify="space-between">
                 <Typography>{coAuthor.username}</Typography>
-                <CloseButton id={coAuthor.id} callback={() => deleteCoAuthor(coAuthor.id)} />
+                {(!creator || coAuthor.username === author) && <CloseButton id={coAuthor.id} callback={() => deleteCoAuthor(coAuthor.id)} />}
             </Row>
     ))
     ], [coAuthors])

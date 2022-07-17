@@ -3,9 +3,7 @@ const noteService = require('../services/notesService');
 class noteController {
     async get(req, res) {
         try {
-            const user = req.user;
-            const {limit, page, sortType} =  req.query;
-            const notesData = await noteService.get(user, limit, page, sortType);
+            const notesData = await noteService.get(req.query);
             return res.json(notesData);
         } catch (e) {
             console.log(e);
@@ -17,7 +15,6 @@ class noteController {
         try {
             const user = req.user;
             const limit = req.query.limit;
-            console.log(await noteService.getPinedNotes(user, limit));
             res.json(await noteService.getPinedNotes(user, limit));
         }
         catch (e) {
@@ -33,6 +30,18 @@ class noteController {
             return res.json(await noteService.getNotePage(noteId, sortType, creator, limit));
         }
         catch (e) {
+            console.log(e);
+            res.status(404).json(e.message)
+        }
+    }
+
+    async getSharedNotes(req, res) {
+        try {
+            const user = req.user;
+            const options = req.query;
+            return res.json(await noteService.getSharedNotes(user, options))
+        }
+        catch(e) {
             console.log(e);
             res.status(404).json(e.message)
         }

@@ -11,6 +11,7 @@ interface IProps {
     coAuthors: ISearchedUser[];
     setCoAuthor: (user: ISearchedUser) => void;
     deleteCoAuthor: (userId : string) => void;
+    creator?: string;
 }
 
 const StyledNoteShare = styled.div`
@@ -28,14 +29,14 @@ const StyledNoteShare = styled.div`
   }
 `
 
-const NoteShare = ({closeWindow, coAuthors, setCoAuthor, deleteCoAuthor }: IProps) => {
+const NoteShare = ({closeWindow, coAuthors, setCoAuthor, deleteCoAuthor, creator }: IProps) => {
     const author = useTypedSelector(state => state.auth.user.username);
     const NoteShareElement = useRef<HTMLDivElement>(null);
     useOutsideClickDetector(NoteShareElement, closeWindow)
     return (
         <StyledNoteShare ref={NoteShareElement}>
             <UserSearch coAuthors={coAuthors} setCoAuthor={setCoAuthor} author={author}/>
-            <ListOfAuthors coAuthors={coAuthors} deleteCoAuthor={deleteCoAuthor} author={author}/>
+            <ListOfAuthors creator={creator} coAuthors={coAuthors} deleteCoAuthor={deleteCoAuthor} author={author}/>
         </StyledNoteShare>
     );
 };

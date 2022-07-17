@@ -3,7 +3,6 @@ import {Typography} from "antd";
 import {IIncomingNotes} from "../../../../types/NotesGetterTypes";
 import styled from "styled-components";
 import {PushpinFilled} from "@ant-design/icons";
-import {Link} from 'react-router-dom';
 
 interface IProps {
     note: IIncomingNotes

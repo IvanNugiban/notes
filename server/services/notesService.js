@@ -2,8 +2,11 @@ const User = require('../models/User');
 const Note = require('../models/Note');
 
 class NotesService {
-    async get(user, limit, page, sortType) {
-        const userNotes = await Note.find({creator: user.id});
+    async get({userId, coAuthorId, limit, page, sortType}) {
+        console.log(userId);
+        let userNotes;
+        if (coAuthorId) userNotes = await Note.find({creator: userId ,"coAuthors.id": coAuthorId})
+        else userNotes = await Note.find({creator: userId});
         if (userNotes.length === 0) throw new Error("No notes found");
         const sortedNotes = await this.sort(sortType, userNotes);
         const totalPages = Math.ceil(sortedNotes.length / limit);
@@ -31,6 +34,31 @@ class NotesService {
         const page = Math.ceil((neededNotePosition + 1) / limit);
         return page;
     }
+
+    async getSharedNotes(user, options) {
+       const sharedNotes = await Note.find({"coAuthors.id": user.id});
+        if (sharedNotes.length === 0) throw new Error("No one has shared notes with you");
+        const differentCreators = [];
+        sharedNotes.forEach(note => {
+            if (!differentCreators.includes(note.creator.toString())) differentCreators.push(note.creator.toString());
+        });
+        const sortedNotes = await Promise.all(differentCreators.map(async creator => {
+            const filteredNotes = sharedNotes.filter(note => note.creator.toString() === creator);
+            const noteCreator = await User.findById(creator);
+            return {
+                creator: {
+                    username: noteCreator.username,
+                    id: noteCreator.id
+                },
+                notes: filteredNotes.slice(0, options.limit),
+                isMoreNotes: filteredNotes.length > options.limit,
+            };
+        }));
+        return {
+           data: sortedNotes.slice(options.pageLimit * (options.page - 1), options.pageLimit * options.page),
+            totalPages: Math.ceil(sortedNotes.length / options.pageLimit)
+        }
+        };
 
     async sort(sortType, notes) {
         switch (sortType) {

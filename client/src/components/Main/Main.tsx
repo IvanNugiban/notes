@@ -1,4 +1,4 @@
-import {Col, Layout, Row} from 'antd';
+import {Layout} from 'antd';
 import React from 'react';
 import RecentNotes from "./RecentNotes/RecentNotes";
 import Notebook from "./Notebook/Notebook";
