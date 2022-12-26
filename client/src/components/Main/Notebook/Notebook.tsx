@@ -29,8 +29,7 @@ const Notebook = () => {
     useEffect(() => {
         async function getNotebookText() {
             const text: AxiosResponse<string> = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notebook/get`, {
-                withCredentials: true,
-                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`, "Access-Control-Allow-Credentials" : true}
             });
             setValue(text.data);
             setIsLoading(false);
@@ -44,9 +43,8 @@ const Notebook = () => {
         setTimer(setTimeout(() => {
                 axios({
                     method: "put",
-                    withCredentials: true,
                     url: `${process.env.REACT_APP_SERVER_URL}/api/notebook/set`,
-                    headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
+                    headers: {Authorization: `Bearer ${localStorage.getItem("token")}`, "Access-Control-Allow-Credentials" : true},
                     data: {
                         text: bind.value
                     }

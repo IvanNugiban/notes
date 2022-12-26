@@ -9,7 +9,7 @@ function redirectToNote(note: IIncomingNotes, sortType: SortTypes, limit: number
     return async (dispatch: Dispatch<Action>) => {
         try {
             const page: AxiosResponse<number> = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notes/getNotePage`, {
-                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}, params: {
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`, "Access-Control-Allow-Credentials" : true}, params: {
                     noteId: note._id,
                     sortType,
                     limit

@@ -4,14 +4,18 @@ import {IUserData} from "../../types/IUserAuth";
 import axios from "axios";
 import {authActions} from "../../redux/slices/authSlice";
 
-function auth(setLoading : Dispatch<SetStateAction<boolean>>) {
+function auth(setLoading: Dispatch<SetStateAction<boolean>>) {
     return async (dispatch: ReduxDispatch<Action>) => {
         try {
-            const response: { data: IUserData } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/auth/auth`, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}});
+            const response: { data: IUserData } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/auth/auth`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem("token")}`,
+                    "Access-Control-Allow-Credentials": true
+                }
+            });
             dispatch(authActions.loginUser(response.data))
             setLoading(false)
-        }
-        catch {
+        } catch {
             localStorage.removeItem("token");
             sessionStorage.removeItem("loggedIn");
             setLoading(false)
