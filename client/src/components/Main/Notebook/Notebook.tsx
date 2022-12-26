@@ -40,7 +40,7 @@ const Notebook = () => {
         setTimer(setTimeout(() => {
                 axios({
                     method: "put",
-                    url: "https://fast-shelf-71286.herokuapp.com/api/notebook/set",
+                    url: `${process.env.REACT_SERVER_URL}/api/notebook/set`,
                     headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
                     data: {
                         text: bind.value
