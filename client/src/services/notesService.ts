@@ -5,7 +5,7 @@ import {GetNotesParams, INotesData, IPinedNotes, ISharedNotes, ISharedParams} fr
 
 export const notesApi = createApi({
     reducerPath: "notesApi",
-    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_SERVER_URL}/api/notes`}),
+    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_APP_SERVER_URL}/api/notes`}),
     tagTypes: ["Notes", "Pined", "Shared"],
     endpoints: (builder) => ({
         getNotes: builder.query<INotesData, GetNotesParams>({

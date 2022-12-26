@@ -7,7 +7,7 @@ import {authActions} from "../../redux/slices/authSlice";
 function auth(setLoading : Dispatch<SetStateAction<boolean>>) {
     return async (dispatch: ReduxDispatch<Action>) => {
         try {
-            const response: { data: IUserData } = await axios.get(`${process.env.REACT_SERVER_URL}/api/auth/auth`, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}});
+            const response: { data: IUserData } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/auth/auth`, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}});
             dispatch(authActions.loginUser(response.data))
             setLoading(false)
         }

@@ -3,7 +3,7 @@ import {ILoggedInUser, IUser, IUserLogin} from '../types/IUserAuth'
 
 export const authApi = createApi({
     reducerPath: "authApi",
-    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_SERVER_URL}/api/auth`}),
+    baseQuery: fetchBaseQuery({baseUrl: `${process.env.REACT_APP_SERVER_URL}/api/auth`}),
     endpoints: (builder) => ({
         loginUser: builder.mutation<ILoggedInUser, IUserLogin>({
             query: (user: IUserLogin) => ({
