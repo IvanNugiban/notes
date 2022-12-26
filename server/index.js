@@ -22,7 +22,7 @@ app.options('/*', (_, res) => {
 });
 
 const start = async () => {
-        await mongoose.connect(config.get("dbUrl"));
+        await mongoose.connect(process.env.DB_URL);
 
         app.listen(PORT);
 };

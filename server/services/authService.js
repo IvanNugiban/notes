@@ -36,7 +36,7 @@ class authService {
 
         const isPasswordCorrect = await bcrypt.compareSync(password, user.password);
         if (!isPasswordCorrect) throw new Error("Password isn't correct");
-        const token = jwt.sign({id: user.id}, config.get("secretKey"), {expiresIn: "30d"});
+        const token = jwt.sign({id: user.id}, process.env.SECRET_KEY, {expiresIn: "30d"});
         return {
             token,
             user: {

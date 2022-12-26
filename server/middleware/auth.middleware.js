@@ -10,7 +10,7 @@ function auth(req, res, next) {
         if (token === "null") {
             return res.status(401).json("Auth error");
         }
-        req.user = jwt.verify(token, config.get("secretKey"));
+        req.user = jwt.verify(token, process.env.SECRET_KEY);
         next();
     }
     catch(e) {
