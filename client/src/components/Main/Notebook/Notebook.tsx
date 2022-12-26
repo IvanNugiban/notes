@@ -28,10 +28,14 @@ const Notebook = () => {
 
     useEffect(() => {
         async function getNotebookText() {
-            const text: AxiosResponse<string> = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notebook/get`, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}});
+            const text: AxiosResponse<string> = await axios.get(`${process.env.REACT_APP_SERVER_URL}/api/notebook/get`, {
+                withCredentials: true,
+                headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}
+            });
             setValue(text.data);
             setIsLoading(false);
         }
+
         getNotebookText();
     }, []);
 
@@ -40,6 +44,7 @@ const Notebook = () => {
         setTimer(setTimeout(() => {
                 axios({
                     method: "put",
+                    withCredentials: true,
                     url: `${process.env.REACT_APP_SERVER_URL}/api/notebook/set`,
                     headers: {Authorization: `Bearer ${localStorage.getItem("token")}`},
                     data: {
@@ -53,7 +58,9 @@ const Notebook = () => {
     return (
         <StyledNotebook>
             <Typography.Title level={4}>Notebook</Typography.Title>
-            {isLoading ? <Skeleton/> : <PoorTextarea {...bind} maxLength={10000} placeholder="Write something down..." bordered={false} autoSize/>}
+            {isLoading ? <Skeleton/> :
+                <PoorTextarea {...bind} maxLength={10000} placeholder="Write something down..." bordered={false}
+                              autoSize/>}
         </StyledNotebook>
     );
 };
