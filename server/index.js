@@ -5,15 +5,18 @@ const authRouter = require('./routes/authRouter');
 const notebookRouter = require('./routes/notebookRouter')
 const notesRouter = require('./routes/notesRouter');
 const corsMiddleware = require('./middleware/cors.middleware');
+const helmet = require("helmet")
 
 const app = express();
-const PORT =  process.env.PORT || config.get("serverPort");
+const PORT =  process.env.PORT || 5050;
 
 app.use(corsMiddleware)
 app.use(express.json());
 app.use("/api/auth", authRouter);
 app.use("/api/notebook", notebookRouter);
 app.use("/api/notes", notesRouter);
+app.use(helmet());
+
 app.options('/*', (_, res) => {
     res.sendStatus(200);
 });
