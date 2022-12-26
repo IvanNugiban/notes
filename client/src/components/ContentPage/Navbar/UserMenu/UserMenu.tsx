@@ -12,6 +12,7 @@ const UserMenu = () => {
             label: <div onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("loggedIn");
+                sessionStorage.removeItem("loggedIn");
                 logoutUser()
             }
             }>Logout</div>,
