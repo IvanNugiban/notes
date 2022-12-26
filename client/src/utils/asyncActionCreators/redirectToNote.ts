@@ -8,7 +8,7 @@ import {IIncomingNotes} from "../../types/NotesGetterTypes";
 function redirectToNote(note: IIncomingNotes, sortType: SortTypes, limit: number) {
     return async (dispatch: Dispatch<Action>) => {
         try {
-            const page: AxiosResponse<number> = await axios.get('https://fast-shelf-71286.herokuapp.com/api/notes/getNotePage', {
+            const page: AxiosResponse<number> = await axios.get(`${process.env.REACT_SERVER_URL}/api/notes/getNotePage`, {
                 headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}, params: {
                     noteId: note._id,
                     sortType,

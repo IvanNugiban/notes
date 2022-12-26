@@ -28,7 +28,7 @@ const Notebook = () => {
 
     useEffect(() => {
         async function getNotebookText() {
-            const text: AxiosResponse<string> = await axios.get("https://fast-shelf-71286.herokuapp.com/api/notebook/get", {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}});
+            const text: AxiosResponse<string> = await axios.get(`${process.env.REACT_SERVER_URL}/api/notebook/get`, {headers: {Authorization: `Bearer ${localStorage.getItem("token")}`}});
             setValue(text.data);
             setIsLoading(false);
         }
