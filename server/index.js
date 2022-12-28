@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const config = require('config');
 const authRouter = require('./routes/authRouter');
 const notebookRouter = require('./routes/notebookRouter')
 const notesRouter = require('./routes/notesRouter');
 const corsMiddleware = require('./middleware/cors.middleware');
 const helmet = require("helmet")
+require('dotenv').config()
 
 const app = express();
 const PORT =  process.env.PORT || 5050;

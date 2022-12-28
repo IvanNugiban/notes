@@ -28,8 +28,8 @@ const LoginPage = () => {
 
     async function authUser() {
         const response = await setLoginData({
-            emailOrUsername: emailOrUsername.value,
-            password: password.value
+            emailOrUsername: emailOrUsername.value.trim(),
+            password: password.value.trim()
         });
         if (!("data" in response)) return;
         sessionStorage.setItem("loggedIn", JSON.stringify(response.data.user));

@@ -2,12 +2,12 @@ const User = require("../models/User");
 const Notebook = require("../models/Notebook")
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("config");
 
 class authService {
     async register({username, email, password}) {
         const candidateEmail = await User.findOne({email});
         const candidateUsername = await User.findOne({username});
+
 
         if (candidateUsername) throw new Error("This username is already taken");
         if (candidateEmail) throw new Error(`User with email ${email} already exist`);

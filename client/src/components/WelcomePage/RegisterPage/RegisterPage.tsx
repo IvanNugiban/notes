@@ -26,9 +26,9 @@ const RegisterPage = () => {
     async function registerNewUser() {
         try {
             await registerUser({
-                username: username.value,
-                email: email.value,
-                password: password.value
+                username: username.value.trim(),
+                email: email.value.trim(),
+                password: password.value.trim()
             }).unwrap()
             clearUsernameField();
             clearEmailField();
